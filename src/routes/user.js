@@ -4,6 +4,8 @@ const { Sequelize } = require("sequelize");
 const router = express.Router();
 const { authSchema } = require("../validator-schema");
 
+const client = require("../utils/redis");
+
 // Model
 const models = require("../models");
 
@@ -11,6 +13,7 @@ const models = require("../models");
 router.get("/", (req, res) => {
   models.User.findAll()
     .then((user) => {
+      client.set("users", user);
       res.json(user);
     })
     .catch((err) => console.log(err));

@@ -4,6 +4,8 @@ const { Sequelize } = require("sequelize");
 const router = express.Router();
 var sequelize = require("sequelize");
 
+const client = require("../utils/redis");
+
 //Models
 const models = require("../models");
 
@@ -11,6 +13,7 @@ const models = require("../models");
 router.get("/", (req, res) => {
   models.Post.findAll()
     .then((posts) => {
+      client.set("posts", JSON.stringify(posts));
       res.json({
         success: true,
         message: "Your post was created successfully!",
