@@ -8,29 +8,20 @@ const client = require("../utils/redis");
 
 // Model
 const models = require("../models");
+const controller = require("../controller/user.controller");
 
 // All users
-router.get("/", (req, res) => {
-  models.User.findAll()
-    .then((user) => {
-      client.set("users", user);
-      res.json(user);
-    })
-    .catch((err) => console.log(err));
-});
+// router.get("/", (req, res) => {
+//   models.User.findAll()
+//     .then((user) => {
+//       client.set("users", user);
+//       res.json(user);
+//     })
+//     .catch((err) => console.log(err));
+// });
 
-//  Create User
-router.post("/create-user", async (req, res) => {
-  const result = await authSchema.validateAsync(req.body);
-  console.log(result);
+router.get("/", controller.getUser);
 
-  const user_name = await models.User.create({
-    id: req.body.id,
-    name: req.body.name,
-    email: req.body.email,
-  })
-    .then((user) => res.redirect("/"))
-    .catch((err) => res.render("error", { error: err.message }));
-});
+router.post("/register", controller.registerUser);
 
 module.exports = router;
