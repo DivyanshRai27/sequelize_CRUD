@@ -68,4 +68,36 @@ router.get("/:id", async (req, res) => {
     .catch((err) => res.render("error", { error: err.message }));
 });
 
+// router.get("/", (req, res) => {
+//   models.Post.findAll()
+//     .then((posts) => {
+//       client.get("posts", (error, posts) => {
+//         if (error) {
+//           console.log(error);
+//         }
+//         if (posts != null) {
+//           console.log("redis hit");
+//           res.json({
+//             success: true,
+//             message: "Your post was created successfully!",
+//             data: {
+//               posts,
+//             },
+//           });
+//         } else {
+//           console.log("redis miss");
+//           client.set("posts", JSON.stringify(posts));
+//           res.json({
+//             success: true,
+//             message: "Your post was created successfully!",
+//             data: {
+//               posts,
+//             },
+//           });
+//         }
+//       });
+//     })
+//     .catch((err) => console.log(err));
+// });
+
 module.exports = router;
