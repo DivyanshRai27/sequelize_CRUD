@@ -1,5 +1,5 @@
 const service = require("../service/user.service");
-const { authSchema } = require("../validator-schema");
+const { authSchema } = require("../validators/user.validator");
 
 let controller = {};
 
