@@ -10,7 +10,6 @@ service.createUser = async (body) => {
 
 service.getUser = async () => {
   const user = await User.findAll();
-  console.log(user);
 
   return user;
 };

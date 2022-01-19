@@ -12,4 +12,25 @@ service.createPost = async (body) => {
   return post;
 };
 
+service.updatePost = async (title, body) => {
+  const post = await Post.update(
+    { title: title },
+    {
+      where: {
+        id: body,
+      },
+    }
+  );
+  return post;
+};
+
+service.deletePost = async (body) => {
+  const post = await Post.destroy({
+    where: {
+      id: body,
+    },
+  });
+  return post;
+};
+
 module.exports = service;

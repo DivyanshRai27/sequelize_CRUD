@@ -1,0 +1,58 @@
+// router.get("/", (req, res) => {
+//   models.Post.findAll()
+//     .then((posts) => {
+//       client.get("posts", (error, posts) => {
+//         if (error) {
+//           console.log(error);
+//         }
+//         if (posts != null) {
+//           console.log("redis hit");
+//           res.json({
+//             success: true,
+//             message: "Your post was created successfully!",
+//             data: {
+//               posts,
+//             },
+//           });
+//         } else {
+//           console.log("redis miss");
+//           client.set("posts", JSON.stringify(posts));
+//           res.json({
+//             success: true,
+//             message: "Your post was created successfully!",
+//             data: {
+//               posts,
+//             },
+//           });
+//         }
+//       });
+//     })
+//     .catch((err) => console.log(err));
+// });
+
+// const Bull = require("bull");
+// const myFirstQueue = new Bull("my-first-queue");
+// router.get("/queue", async (req, res) => {
+//     const job = await myFirstQueue.add({
+//       foo: [
+//         {
+//           foo: "bar",
+//         },
+//         {
+//           name: "Divyansh",
+//         },
+//       ],
+//     });
+
+//     myFirstQueue.process(async (job) => {
+//       let progress = 0;
+//       console.log("hi");
+//       for (i = 0; i < 2; i++) {
+//         console.log(job.data.foo[i]);
+//         // await doSomething(job.data);
+//         progress += 10;
+//         console.log(progress);
+//         job.progress(progress);
+//       }
+//     });
+//   });

@@ -42,4 +42,43 @@ controller.registerPost = async (req, res, next) => {
   }
 };
 
+controller.updatePost = async (req, res, next) => {
+  try {
+    const title = req.body.title;
+    const id = req.params.id;
+    await service.updatePost(title, id);
+
+    return res.json({
+      success: true,
+      message: "You have successfully updated!",
+      data: {},
+    });
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: error.message,
+      data: {},
+    });
+  }
+};
+
+controller.deletePost = async (req, res, next) => {
+  try {
+    const result = req.params.id;
+    await service.deletePost(result);
+
+    return res.json({
+      success: true,
+      message: "You have successfully deleted!",
+      data: {},
+    });
+  } catch (error) {
+    return res.json({
+      success: false,
+      message: error.message,
+      data: {},
+    });
+  }
+};
+
 module.exports = controller;
