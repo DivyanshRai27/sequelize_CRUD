@@ -4,44 +4,16 @@ const { Sequelize } = require("sequelize");
 const router = express.Router();
 var sequelize = require("sequelize");
 
-const client = require("../utils/redis");
+const controller = require("../controller/post.controller");
 
 //Models
 const models = require("../models");
 
 // Get all posts
-router.get("/", (req, res) => {
-  models.Post.findAll()
-    .then((posts) => {
-      client.set("posts", JSON.stringify(posts));
-      res.json({
-        success: true,
-        message: "Your post was created successfully!",
-        data: {
-          posts,
-        },
-      });
-    })
-    .catch((err) => console.log(err));
-});
+router.get("/", controller.getPost);
 
 // Create post
-router.post("/", async (req, res) => {
-  const t = await models.sequelize.transaction();
-  try {
-    const post_name = await models.Post.create(
-      {
-        id: req.body.id,
-        title: req.body.title,
-        user_id: req.body.user_id,
-      },
-      { transaction: t }
-    );
-    await t.commit().then((post) => res.redirect("/"));
-  } catch (error) {
-    await t.rollback();
-  }
-});
+router.post("/", controller.registerPost);
 
 // Update post
 router.post("/:id", async (req, res) => {
